@@ -9,7 +9,13 @@ app = Flask(__name__)
 @app.route("/classify_review", methods=["POST"])
 @swagger_metadata(
     request_model={"review": "string"},
-    response_model=[(200, "Success"), (500, "Error")],
+    response_model=[
+        (
+            200,
+            '{"sentiment": "string","response": "string","good_points": [""],"bad_points": [""]}',
+        ),
+        (500, "Error"),
+    ],
     summary="Submit review for analisys",
 )
 def classify_review():

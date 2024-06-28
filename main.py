@@ -75,8 +75,8 @@ class CrewRunner:
         )
 
         anon_obj = SimpleNamespace(
-            sentiment=classify_review_task.output.raw_output,
-            response=respond_to_review_task.output.raw_output,
+            sentiment=clear_output(classify_review_task.output.raw_output),
+            response=clear_output(respond_to_review_task.output.raw_output),
             good_points=output.good or [],
             bad_points=output.bad or [],
         )
@@ -107,3 +107,9 @@ def extract_first_json_object(s):
                     start_index = None
     # Return None if no valid JSON object is found
     return None
+
+
+def clear_output(output):
+    if output is None or output == "" or "\n" not in output:
+        return output
+    return output.split("\n", 1)[0]
